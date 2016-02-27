@@ -13,7 +13,7 @@ public class JsonConverter {
 
 	public static void main(String[] args) {
 
-		DataObject obj = new DataObject();
+		Restaurant obj = new Restaurant();
 		Gson gson = new Gson();
 
 		// convert java object to JSON format,
@@ -22,7 +22,7 @@ public class JsonConverter {
 
 		try {
 			//write converted json data to a file named "file.json"
-			FileWriter writer = new FileWriter("c:\\file.json");
+			FileWriter writer = new FileWriter("restaurant.json");
 			writer.write(json);
 			writer.close();
 
@@ -33,6 +33,6 @@ public class JsonConverter {
 		System.out.println(json);
 
 	    }
-	}
+
 
 }

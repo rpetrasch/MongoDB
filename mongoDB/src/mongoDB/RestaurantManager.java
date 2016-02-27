@@ -2,6 +2,9 @@ package mongoDB;
 
 import org.bson.Document;
 
+import com.google.gson.Gson;
+import com.mongodb.Block;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 
 import java.text.DateFormat;
@@ -9,13 +12,47 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+
 import static java.util.Arrays.asList;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class RestaurantManager {
 
 	public RestaurantManager() {
-		// TODO Auto-generated constructor stub
+		
 	}
+	
+	public static void insertRestaurant(MongoDatabase db, Restaurant obj){ 
+		Gson gson = new Gson();
+
+		// convert java object to JSON format,
+		// and returned as JSON formatted string
+		String json = gson.toJson(obj);
+		Document doc = Document.parse(json);
+		db.getCollection("restaurants").insertOne(doc);
+	}
+	
+	public static void showAllRestaurants(MongoDatabase db){
+		FindIterable<Document> iterable = db.getCollection("restaurants").find();
+		iterable.forEach(new Block<Document>() {
+		    @Override
+		    public void apply(final Document document) {
+		        System.out.println(document);
+		    }
+		});
+		
+	}
+	
+	public static void findRestaurantByName(MongoDatabase db, String name){
+		
+		FindIterable<Document> iterable = db.getCollection("restaurants").find(eq("name", name));
+		for (Document doc:  iterable ) {
+			System.out.println(doc);
+		}
+	}
+	
+	
 	
 	public static void insertOne(MongoDatabase db){ 
 	DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);

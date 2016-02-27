@@ -11,9 +11,20 @@ public class JsonConverter {
 	}
 
 
-	public static void main(String[] args) {
+	public static String convertJava2JSON (Restaurant obj) {
 
-		Restaurant obj = new Restaurant();
+		Gson gson = new Gson();
+
+		// convert java object to JSON format,
+		// and returned as JSON formatted string
+		String json = gson.toJson(obj);
+
+		return json;
+
+	    }
+
+	public static void convertJava2JSONfile (Restaurant obj) {
+
 		Gson gson = new Gson();
 
 		// convert java object to JSON format,
@@ -33,6 +44,5 @@ public class JsonConverter {
 		System.out.println(json);
 
 	    }
-
 
 }

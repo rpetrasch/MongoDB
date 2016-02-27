@@ -2,6 +2,7 @@ package mongoDB;
 
 import static java.util.Arrays.asList;
 
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 
@@ -22,11 +23,20 @@ public class Main {
 		mongoClient.close();
 
 		
+		
+		mongoClient = new MongoClient();
+		
 		Restaurant ronaldo = new Restaurant();
 		ronaldo.setName("Ronaldo");
 		ronaldo.setCoord(asList(-73.9557413, 40.7720266));
 		
+		RestaurantManager.insertRestaurant(db, ronaldo);
+		
+		
+		// Close the connection
+		mongoClient.close();
 
+	
 	}
 
 }
